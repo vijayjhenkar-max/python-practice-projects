@@ -70,10 +70,75 @@ def search_contact():
         print("Contact not found")
 
 def update_contact():
-    pass
+    update = input("Enter the name that you desire to update :")
+    if not contacts:
+        print("List is empty")
+    else:
+        found = False
+        
+        for x in contacts:
+            if update.lower() == x["Name"].lower():
+
+                while True:
+                    print("What do you want to update:\n1.Name\n2.Phone\n3.Place\n4.Details\n5.Exit")
+
+                    choice = input("")
+
+                    if choice == '1':
+                        n_name = input("Enter the new name :")
+                        x["Name"] = n_name
+                        print("Sucessfully updated")
+
+                    elif choice == '2':
+                        n_phone = input("Enter the new phone :")
+                        if len(n_phone)==10 and n_phone.isdigit() and n_phone[0] in "6789":
+                            
+                            duplicate = False
+                            for y in contacts:
+                                if n_phone == y['Phone'] and y != x:
+                                    duplicate = True
+                                    break
+                                        
+                            if duplicate:
+                                print("Phone number already exists")
+                                return
+                            
+                            else:
+                                x["Phone"] = n_phone   
+                                print("Sucessfully updated")
+
+                        else:
+                            print("Invalid number")
+
+                        
+
+                    elif choice == '3':
+                        n_place = input("Enter the new place :")
+                        x["Place"] = n_place
+                        print("Sucessfully updated")
+
+                    elif choice == '4':
+                        n_details = input("Enter the new details") 
+                        x["Details"] = n_details 
+                        print("Sucessfully updated")
+
+                    elif choice == '5':
+                        break
+
+                    else:
+                        print("Invalid choice")    
+
+
+                found = True      
+        
+        if not found:
+            print("Contact not found")
+            
+
+        
 
 def delete_contact():
-    pass
+        pass
 
 
 while True:
