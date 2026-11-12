@@ -138,9 +138,12 @@ def update_contact():
         
 
 def delete_contact():
-        pass
-
-
+    delete = input("Enter the name of the contact that you want to delete :")
+    for x in contacts:
+        if delete.lower() == x["Name"].lower():
+            contacts.remove(x)
+        else:
+            print("Contact not found")
 while True:
     print("\n===== CONTACT MANAGEMENT SYSTEM =====")
     print("1. Add Contact")
