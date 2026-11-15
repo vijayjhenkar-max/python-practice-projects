@@ -137,6 +137,7 @@ def update_contact():
 
         
 
+
 def delete_contact():
     if not contacts:
         print("Contact list is empty")
@@ -147,13 +148,31 @@ def delete_contact():
 
     for x in contacts:
         if delete.lower() == x["Name"].lower():
-            contacts.remove(x)
+
+            print("\nContact found!")
+            print("Name  :", x["Name"])
+            print("Phone :", x["Phone"])
+            print("Place :", x["Place"])
+
+            confirm = input(
+                "Are you sure you want to delete? (yes/no): "
+            ).strip().lower()
+
+            if confirm == "yes":
+                contacts.remove(x)
+                print("Contact successfully deleted")
+
+            elif confirm == "no":
+                print("Deletion cancelled")
+
+            else:
+                print("Invalid choice. Deletion cancelled")
+
             found = True
-            print("Contact successfully deleted")
             break
 
     if not found:
-        print("Contact not found")   
+        print("Contact not found")
 
 while True:
     print("\n===== CONTACT MANAGEMENT SYSTEM =====")
