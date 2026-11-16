@@ -174,6 +174,9 @@ def delete_contact():
     if not found:
         print("Contact not found")
 
+def total_contacts():
+    print("Total contacts:", len(contacts))        
+
 while True:
     print("\n===== CONTACT MANAGEMENT SYSTEM =====")
     print("1. Add Contact")
@@ -181,7 +184,8 @@ while True:
     print("3. Search Contact")
     print("4. Update Contact")
     print("5. Delete Contact")
-    print("6. Exit")
+    print("6. Total Contacts")
+    print("7. Exit")
 
     choice = input("Enter the choice: ")
 
@@ -200,9 +204,14 @@ while True:
     elif choice == "5":
         delete_contact()
 
-    elif choice == "6":
+    elif choice == "7":
+        total_contacts()   
+
+    elif choice == "7":
         print("Exiting...")
         break
+
+    
 
     else:
         print("Enter a valid choice")
