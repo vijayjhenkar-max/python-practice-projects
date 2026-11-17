@@ -175,7 +175,13 @@ def delete_contact():
         print("Contact not found")
 
 def total_contacts():
-    print("Total contacts:", len(contacts))        
+    print("Total contacts:", len(contacts))     
+
+def sort_contacts():
+    
+    sorted_contacts = sorted(contacts,key = lambda x: x["Name"].lower())
+    return sorted_contacts
+        
 
 while True:
     print("\n===== CONTACT MANAGEMENT SYSTEM =====")
@@ -185,7 +191,8 @@ while True:
     print("4. Update Contact")
     print("5. Delete Contact")
     print("6. Total Contacts")
-    print("7. Exit")
+    print("7. Sort Contacts")
+    print("8. Exit")
 
     choice = input("Enter the choice: ")
 
@@ -204,10 +211,14 @@ while True:
     elif choice == "5":
         delete_contact()
 
-    elif choice == "7":
-        total_contacts()   
+    elif choice == "6":
+        total_contacts()  
 
     elif choice == "7":
+        for x in sort_contacts():
+            print(x["Name"], x["Phone"])
+
+    elif choice == "8":
         print("Exiting...")
         break
 
