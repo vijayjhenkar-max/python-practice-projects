@@ -1,4 +1,21 @@
-contacts = []
+import json
+
+def load_contacts():
+    try:
+        with open("contacts.json", "r") as file:
+            return json.load(file)
+        
+    except FileNotFoundError:
+        return []
+    
+def save_contacts():
+    with open("contacts.json","w") as file:
+        json.dump(contacts,file,indent= 4)
+
+        
+contacts = load_contacts()
+
+
 
 def add_contact():
         
@@ -30,6 +47,7 @@ def add_contact():
         else:
             print("Enter correct number")
 
+
     while True:
         place = input("Place  : ").strip()
         if place:
@@ -40,6 +58,8 @@ def add_contact():
 
     entry = {"Name" : name, "Phone" : phone , "Place" : place , "Details" : details}
     contacts.append(entry)
+
+    save_contacts()
         
 
 def view_contact():
@@ -87,6 +107,7 @@ def update_contact():
                     if choice == '1':
                         n_name = input("Enter the new name :")
                         x["Name"] = n_name
+                        save_contacts()
                         print("Sucessfully updated")
 
                     elif choice == '2':
@@ -104,7 +125,8 @@ def update_contact():
                                 return
                             
                             else:
-                                x["Phone"] = n_phone   
+                                x["Phone"] = n_phone  
+                                save_contacts() 
                                 print("Sucessfully updated")
 
                         else:
@@ -115,11 +137,13 @@ def update_contact():
                     elif choice == '3':
                         n_place = input("Enter the new place :")
                         x["Place"] = n_place
+                        save_contacts()
                         print("Sucessfully updated")
 
                     elif choice == '4':
                         n_details = input("Enter the new details") 
                         x["Details"] = n_details 
+                        save_contacts()
                         print("Sucessfully updated")
 
                     elif choice == '5':
@@ -160,6 +184,7 @@ def delete_contact():
 
             if confirm == "yes":
                 contacts.remove(x)
+                save_contacts()  
                 print("Contact successfully deleted")
 
             elif confirm == "no":
@@ -174,6 +199,8 @@ def delete_contact():
     if not found:
         print("Contact not found")
 
+      
+
 def total_contacts():
     print("Total contacts:", len(contacts))     
 
@@ -181,7 +208,9 @@ def sort_contacts():
     
     sorted_contacts = sorted(contacts,key = lambda x: x["Name"].lower())
     return sorted_contacts
-        
+
+
+
 
 while True:
     print("\n===== CONTACT MANAGEMENT SYSTEM =====")
