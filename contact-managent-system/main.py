@@ -8,6 +8,11 @@ def load_contacts():
     except FileNotFoundError:
         return []
     
+    except json.JSONDecodeError:
+        print("Invalid JSON file. Starting with an empty contact list.")
+        return []
+
+
 def save_contacts():
     with open("contacts.json","w") as file:
         json.dump(contacts,file,indent= 4)
@@ -102,16 +107,32 @@ def update_contact():
                 while True:
                     print("What do you want to update:\n1.Name\n2.Phone\n3.Place\n4.Details\n5.Exit")
 
-                    choice = input("")
+                    choice = input("").strip()
 
                     if choice == '1':
-                        n_name = input("Enter the new name :")
-                        x["Name"] = n_name
-                        save_contacts()
-                        print("Sucessfully updated")
+                        duplicate = False
+                        n_name = input("Enter the new name :").strip()
+                        
+                            
+                        
+                        for y in contacts:
+                            if n_name.lower() == y["Name"].lower() and y!=x:
+                                duplicate = True
+                                break
+                        
+                        if not n_name:
+                            print("Name cannot be empty")
+                        
+                        elif duplicate == True:
+                            print("Name already exists")
+
+                        else:
+                            x["Name"] = n_name
+                            save_contacts()
+                            print("Sucessfully updated")
 
                     elif choice == '2':
-                        n_phone = input("Enter the new phone :")
+                        n_phone = input("Enter the new phone :").strip()
                         if len(n_phone)==10 and n_phone.isdigit() and n_phone[0] in "6789":
                             
                             duplicate = False
@@ -122,7 +143,7 @@ def update_contact():
                                         
                             if duplicate:
                                 print("Phone number already exists")
-                                return
+                                continue
                             
                             else:
                                 x["Phone"] = n_phone  
@@ -135,10 +156,13 @@ def update_contact():
                         
 
                     elif choice == '3':
-                        n_place = input("Enter the new place :")
-                        x["Place"] = n_place
-                        save_contacts()
-                        print("Sucessfully updated")
+                        n_place = input("Enter the new place :").strip()
+                        if not n_place:
+                            print("Place cannot be empty")
+                        else:    
+                            x["Place"] = n_place
+                            save_contacts()
+                            print("Sucessfully updated")
 
                     elif choice == '4':
                         n_details = input("Enter the new details") 
@@ -154,7 +178,7 @@ def update_contact():
 
 
                 found = True      
-        
+                break
         if not found:
             print("Contact not found")
             
