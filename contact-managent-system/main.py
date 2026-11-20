@@ -82,17 +82,52 @@ def view_contact():
             print("--------------------------")             
 
 def search_contact():
-    search = input("Enter the name to be searched: ")
-    found = False
+    while True:
+        print("----------SEARCH CONTACTS----------\n1. Search by name\n2. Search by Phone number\n3. Exit to main menu\n")
+        choice =input("Enter your option:").strip()
+        
 
-    for x in contacts:
-        if search.lower() in x["Name"].lower():
-            print("Contact found")
-            print(f"Name :{x['Name']}\nNumber :{x['Phone']}\nPlace :{x['Place']}\nDetails :{x['Details']}")
-            found = True      
+        if choice == "1":
+            search = input("Enter the name to be searched: ").strip()
+            found = False
+            if contacts:
+               
+                for x in contacts:
+                    if search.lower() in x["Name"].lower():
+                        print("Contact found")
+                        print(f"Name :{x['Name']}\nNumber :{x['Phone']}\nPlace :{x['Place']}\nDetails :{x['Details']}")
+                        found = True      
 
-    if not found:
-        print("Contact not found")
+                if not found:
+                    print("Contact not found")
+
+            else:
+                print("Contact list is empty")
+
+
+        elif choice == "2":
+            search = input("Enter the phone number to be searched :").strip()
+            found = False
+            if contacts:
+                
+                for x in contacts:
+                    if search == x["Phone"]:
+                        print("Contact found")
+                        print(f"Name :{x['Name']}\nNumber :{x['Phone']}\nPlace :{x['Place']}\nDetails :{x['Details']}")
+                        found = True      
+            
+                if not found:
+                    print("Contact not found")
+
+            else:
+                print("Contact list is empty")
+
+        elif choice == "3":
+            break
+
+        else:
+            print("Enter correct choice")            
+
 
 def update_contact():
     update = input("Enter the name that you desire to update :")
